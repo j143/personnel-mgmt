@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Employee Database</title>
+  </head>
+  <body>
+    <h1>Employee Database</h1>
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+        <th>Hire Date</th>
+        <th>Job ID</th>
+        <th>Salary</th>
+        <th>Commission %</th>
+        <th>Manager ID</th>
+        <th>Department ID</th>
+      </tr>
+      {% for employee in employees %}
+      <tr>
+        <td>{{ employee[0] }}</td>
+        <td>{{ employee[1] }}</td>
+        <td>{{ employee[2] }}</td>
+        <td>{{ employee[3] }}</td>
+        <td>{{ employee[4] }}</td>
+        <td>{{ employee[5] }}</td>
+        <td>{{ employee[6] }}</td>
+        <td>{{ employee[7] }}</td>
+        <td>{{ employee[8] }}</td>
+        <td>{{ employee[9] }}</td>
+        <td>{{ employee[10] }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <a href="/new_employee
