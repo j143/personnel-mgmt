@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>New Employee</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+	<h1>New Employee</h1>
+	<form method="POST" action="{{ url_for('new_employee') }}">
+		<label for="first_name">First Name:</label>
+		<input type="text" name="first_name" id="first_name" required>
+		<label for="last_name">Last Name:</label>
+		<input type="text" name="last_name" id="last_name" required>
+		<label for="email">Email:</label>
+		<input type="email" name="email" id="email" required>
+		<label for="phone_number">Phone Number:</label>
+		<input type="tel" name="phone_number" id="phone_number" required>
+		<label for="hire_date">Hire Date:</label>
+		<input type="date" name="hire_date" id="hire_date" required>
+		<label for="job_id">Job Title:</label>
+		<select name="job_id" id="job_id" required>
+			{% for job in jobs %}
+			<option value="{{ job.id }}">{{ job.title }}</option>
+			{% endfor %}
+		</select>
+		<label for="salary">Salary:</label>
+		<input type="number" name="salary" id="salary" step="0.01" required>
+		<label for="commission_pct">Commission Pct:</label>
+		<input type="number" name="commission_pct" id="commission_pct" step="0.01">
+		<label for="manager_id">Manager ID:</label>
+		<input type="number" name="manager_id" id="manager_id">
+		<label for="department_id">Department ID:</label>
+		<input type="number" name="department_id" id="department_id" required>
+		<input type="submit" value="Create">
+	</form>
+</body>
+</html>

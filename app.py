@@ -33,6 +33,9 @@ class Employee(db.Model):
     manager_id = db.Column(db.Integer, db.ForeignKey('employee.id'), nullable=True)
     department_id = db.Column(db.Integer, db.ForeignKey('department.id'), nullable=False)
 
+with app.app_context():
+    db.create_all()
+
 
 # Define the routes and views
 @app.route('/')
@@ -73,7 +76,6 @@ def new_employee():
         jobs = Job.query.all()
         departments = Department.query.all()
         return render_template('new_employee.html', jobs=jobs, departments=departments)
-
 
 # Run the application
 if __name__ == '__main__':

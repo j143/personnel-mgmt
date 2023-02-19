@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Employee Database</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+	<h1>Employee Database</h1>
+	<a href="{{ url_for('new_employee') }}" class="button">New Employee</a>
+	<table>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Email</th>
+				<th>Phone Number</th>
+				<th>Hire Date</th>
+				<th>Job Title</th>
+				<th>Salary</th>
+				<th>Commission Pct</th>
+				<th>Manager ID</th>
+				<th>Department ID</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for employee in employees %}
+			<tr>
+				<td>{{ employee.id }}</td>
+				<td>{{ employee.first_name }}</td>
+				<td>{{ employee.last_name }}</td>
+				<td>{{ employee.email }}</td>
+				<td>{{ employee.phone_number }}</td>
+				<td>{{ employee.hire_date }}</td>
+				<td>{{ employee.job.title }}</td>
+				<td>{{ employee.salary }}</td>
+				<td>{{ employee.commission_pct }}</td>
+				<td>{{ employee.manager_id }}</td>
+				<td>{{ employee.department_id }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</body>
+</html>
