@@ -14,3 +14,7 @@ Personnel Management System with Branches all over the world
 Fig. ER Diagram
 
 
+## Database Schema
+
+
+![Database Schema](./static/database-schema-diagram.png)
