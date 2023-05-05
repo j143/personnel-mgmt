@@ -31,10 +31,6 @@ software_engineer = Job(title='Software Engineer', min_salary=6000, max_salary=8
 db.session.add_all([hr_manager, hr_generalist, sales_representative, software_engineer])
 db.session.commit()
 
-# # Create the employees
-# john_smith = Employee(first_name='John', last_name='Smith', email='john.smith@example.com',
-#                       phone_number='555-1234', hire_date='2022-01-01', salary=6000, department=engineering_department,
-#                       job=software_engineer)
 # Create the employees
 john_smith = Employee(first_name='John', last_name='Smith', email='john.smith@example.com',
                       phone_number='555-1234', hire_date=datetime.strptime('2022-01-01', '%Y-%m-%d'), salary=6000, department_id=engineering_department.id,
@@ -61,19 +57,9 @@ db.session.add_all([project1, project2, project3])
 db.session.commit()
 
 # Assign employees to projects
-# WorksOn(employee=jane_doe, project=project1, hours=40)
-# WorksOn(employee=jane_doe, project=project2, hours=20)
-# WorksOn(employee=john_smith, project=project1, hours=60)
-
-# Assign employees to projects
 jane_doe_works_on1 = WorksOn(employee_id=jane_doe.id, project=project1, hours=40)
 jane_doe_works_on2 = WorksOn(employee_id=jane_doe.id, project=project2, hours=20)
 john_smith_works_on1 = WorksOn(employee_id=john_smith.id, project=project1, hours=60)
-
-# # Add the works on relationships to the database
-# db.session.add_all([WorksOn(employee=jane_doe, project=project1, hours=40),
-#                     WorksOn(employee=jane_doe, project=project2, hours=20),
-#                     WorksOn(employee=john_smith, project=project1, hours=60)])
 
 db.session.add_all([jane_doe_works_on1, jane_doe_works_on2, john_smith_works_on1])
 db.session.commit()

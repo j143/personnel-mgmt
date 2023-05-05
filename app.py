@@ -2,6 +2,9 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 
+from datetime import datetime
+
+
 # Create the Flask application
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///employees.db'
@@ -84,7 +87,7 @@ def new_employee():
         last_name = request.form['last_name']
         email = request.form['email']
         phone_number = request.form['phone_number']
-        hire_date = request.form['hire_date']
+        hire_date = datetime.strptime(request.form['hire_date'], '%Y-%m-%d').date()
         job_id = request.form['job_id']
         salary = request.form['salary']
         commission_pct = request.form['commission_pct']
