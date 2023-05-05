@@ -12,6 +12,7 @@ db = SQLAlchemy(app)
 class Department(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
+    projects = db.relationship('Project', backref='department', lazy=True)
 
 
 class Job(db.Model):
@@ -19,6 +20,7 @@ class Job(db.Model):
     title = db.Column(db.String(50), nullable=False)
     min_salary = db.Column(db.Float, nullable=False)
     max_salary = db.Column(db.Float, nullable=False)
+    employees = db.relationship('Employee', backref='job', lazy=True)
 
 
 class Employee(db.Model):
@@ -32,6 +34,36 @@ class Employee(db.Model):
     commission_pct = db.Column(db.Float, nullable=True)
     manager_id = db.Column(db.Integer, db.ForeignKey('employee.id'), nullable=True)
     department_id = db.Column(db.Integer, db.ForeignKey('department.id'), nullable=False)
+    job_id = db.Column(db.Integer, db.ForeignKey('job.id'), nullable=False)
+    employee_projects = db.relationship('Project', secondary='works_on', backref='project_employees', lazy=True)
+
+
+class Project(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    start_date = db.Column(db.Date, nullable=False)
+    end_date = db.Column(db.Date, nullable=False)
+    deliverables = db.Column(db.String(100), nullable=False)
+    clients = db.Column(db.String(100), nullable=False)
+    department_id = db.Column(db.Integer, db.ForeignKey('department.id'), nullable=False)
+    resources = db.Column(db.String(100), nullable=False)
+    employees = db.relationship('Employee', secondary='works_on', backref='projects', lazy=True)
+    # works_on = db.relationship('Employee', secondary='works_on', backref='projects', lazy=True)
+
+
+class Role(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    manager = db.Column(db.String(50), nullable=False)
+    functional_head = db.Column(db.String(50), nullable=False)
+    employee_id = db.Column(db.Integer, db.ForeignKey('employee.id'))
+    employees = db.relationship('Employee', backref='role', lazy=True)
+
+
+class WorksOn(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    employee_id = db.Column(db.Integer, db.ForeignKey('employee.id'), nullable=False)
+    project_id = db.Column(db.Integer, db.ForeignKey('project.id'), nullable=False)
+    hours = db.Column(db.Integer, nullable=False)
 
 with app.app_context():
     db.create_all()
