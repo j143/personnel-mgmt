@@ -1,4 +1,14 @@
+from flask import Flask
 from app import db, Department, Job, Employee, Project, WorksOn
+
+# create Flask app object
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///employees.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db.init_app(app)
+
+# create app context
+app.app_context().push()
 
 # Create the departments
 hr_department = Department(name='Human Resources')
@@ -19,13 +29,18 @@ software_engineer = Job(title='Software Engineer', min_salary=6000, max_salary=8
 db.session.add_all([hr_manager, hr_generalist, sales_representative, software_engineer])
 db.session.commit()
 
+# # Create the employees
+# john_smith = Employee(first_name='John', last_name='Smith', email='john.smith@example.com',
+#                       phone_number='555-1234', hire_date='2022-01-01', salary=6000, department=engineering_department,
+#                       job=software_engineer)
 # Create the employees
 john_smith = Employee(first_name='John', last_name='Smith', email='john.smith@example.com',
-                      phone_number='555-1234', hire_date='2022-01-01', salary=6000, department=engineering_department,
-                      job=software_engineer)
+                      phone_number='555-1234', hire_date='2022-01-01', salary=6000, department_id=engineering_department.id,
+                      job_id=software_engineer.id)
+
 jane_doe = Employee(first_name='Jane', last_name='Doe', email='jane.doe@example.com',
-                    phone_number='555-5678', hire_date='2022-02-01', salary=5000, department=hr_department,
-                    job=hr_manager, manager=john_smith)
+                    phone_number='555-5678', hire_date='2022-02-01', salary=5000, department_id=hr_department.id,
+                    job_id=hr_manager.id, manager_id=john_smith.id)
 
 # Add the employees to the database
 db.session.add_all([john_smith, jane_doe])
