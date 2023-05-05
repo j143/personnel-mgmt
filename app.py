@@ -94,6 +94,10 @@ def new_employee():
         manager_id = request.form['manager_id']
         department_id = request.form['department_id']
 
+        # Convert empty commission_pct to None
+        commission_pct = commission_pct if commission_pct else None
+        manager_id = manager_id if manager_id else None
+
         # Insert the data into the database
         employee = Employee(first_name=first_name, last_name=last_name, email=email, phone_number=phone_number,
                             hire_date=hire_date, job_id=job_id, salary=salary, commission_pct=commission_pct,
