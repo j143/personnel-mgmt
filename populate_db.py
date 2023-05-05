@@ -1,6 +1,8 @@
 from flask import Flask
 from app import db, Department, Job, Employee, Project, WorksOn
 
+from datetime import datetime
+
 # create Flask app object
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///employees.db'
@@ -35,11 +37,11 @@ db.session.commit()
 #                       job=software_engineer)
 # Create the employees
 john_smith = Employee(first_name='John', last_name='Smith', email='john.smith@example.com',
-                      phone_number='555-1234', hire_date='2022-01-01', salary=6000, department_id=engineering_department.id,
+                      phone_number='555-1234', hire_date=datetime.strptime('2022-01-01', '%Y-%m-%d'), salary=6000, department_id=engineering_department.id,
                       job_id=software_engineer.id)
 
 jane_doe = Employee(first_name='Jane', last_name='Doe', email='jane.doe@example.com',
-                    phone_number='555-5678', hire_date='2022-02-01', salary=5000, department_id=hr_department.id,
+                    phone_number='555-5678', hire_date=datetime.strptime('2022-01-01', '%Y-%m-%d'), salary=5000, department_id=hr_department.id,
                     job_id=hr_manager.id, manager_id=john_smith.id)
 
 # Add the employees to the database
@@ -47,11 +49,11 @@ db.session.add_all([john_smith, jane_doe])
 db.session.commit()
 
 # Create the projects
-project1 = Project(start_date='2022-01-01', end_date='2022-06-30', deliverables='Design and implement new feature',
+project1 = Project(start_date=datetime.strptime('2022-01-01', '%Y-%m-%d'), end_date=datetime.strptime('2022-06-30', '%Y-%m-%d'), deliverables='Design and implement new feature',
                    clients='Acme Corp', department=engineering_department, resources='Python, Flask, PostgreSQL')
-project2 = Project(start_date='2022-02-01', end_date='2022-05-31', deliverables='Develop marketing strategy',
+project2 = Project(start_date=datetime.strptime('2022-02-01', '%Y-%m-%d'), end_date=datetime.strptime('2022-05-31', '%Y-%m-%d'), deliverables='Develop marketing strategy',
                    clients='Globex Corp', department=sales_department, resources='Salesforce, Hubspot')
-project3 = Project(start_date='2022-03-01', end_date='2022-08-31', deliverables='Improve HR policies and procedures',
+project3 = Project(start_date=datetime.strptime('2022-03-01', '%Y-%m-%d'), end_date=datetime.strptime('2022-08-31', '%Y-%m-%d'), deliverables='Improve HR policies and procedures',
                    clients='Internal', department=hr_department, resources='HRIS')
 
 # Add the projects to the database
